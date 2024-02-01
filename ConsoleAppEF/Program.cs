@@ -3,12 +3,11 @@ using ConsoleAppEF.Core.Entities;
 using ConsoleAppEF.DatabaseAccess;
 using ConsoleAppEF.DTOs;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 Console.WriteLine("EF Project");
 
 AppDbContext context = new AppDbContext();
-
-
 #region Add
 //Product product1 = new()
 //{
@@ -218,11 +217,75 @@ AppDbContext context = new AppDbContext();
 //}
 #endregion
 #region One To One
+#region Create
+//ProductDetail productDetail = new ProductDetail()
+//{
+//    Description = "Xiaomi is price quality product"   
+//};
 
+//Product product = new Product()
+//{
+//    Name = "Xiaomi Note 11 Pro+ Indian Edition",
+//    Price = 1000,
+//    ProductDetail = productDetail
+//};
+//await context.Products.AddAsync(product);
+//await context.SaveChangesAsync();
+#endregion
 #endregion
 #region One To Many
+#region Create
+//List<Product> products = new List<Product>();
 
+//Product product1 = new Product()
+//{
+//    Name = "Hp Envy",
+//    Price = 2420,
+//    ProductDetail = new ProductDetail()
+//    {
+//        Description = "The best of its model"
+//    }
+//};
+//Product product2 = new Product()
+//{
+//    Name = "Asus Gaming Experience",
+//    Price = 2400,
+//    ProductDetail = new ProductDetail()
+//    {
+//        Description = "Overpowered workstation"
+//    }
+//};
+
+//products.Add(product1);
+//products.Add(product2);
+
+//Brand brand1 = new Brand()
+//{
+//    Name = "HP",
+//    Products = products
+//};
+//await context.Brands.AddRangeAsync(brand1);
+//await context.SaveChangesAsync();
+#endregion
 #endregion
 #region Many To Many
-
+//Product? product = await context.Products.FindAsync(1);
+//if (product is not null)
+//{
+//    Invoice invoice1 = new Invoice();
+//    invoice1.CreatedTime = DateTime.Now;
+//    ProductInvoice productInvoice = new ProductInvoice()
+//    {
+//        ProductId = product.Id,
+//        Counting = 4
+//    };
+//#pragma warning disable CS8629 // Nullable value type may be null.
+//    invoice1.TotalPrice = (decimal)(product.Price * productInvoice.Counting);
+//#pragma warning restore CS8629 // Nullable value type may be null.
+//    List<ProductInvoice> pi = new List<ProductInvoice>();
+//    pi.Add(productInvoice);
+//    invoice1.ProductInvoices = pi;
+//    await context.Invoices.AddAsync(invoice1);
+//    await context.SaveChangesAsync();
+//}
 #endregion

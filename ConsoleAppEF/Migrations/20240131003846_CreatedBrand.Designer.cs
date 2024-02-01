@@ -4,6 +4,7 @@ using ConsoleAppEF.DatabaseAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConsoleAppEF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240131003846_CreatedBrand")]
+    partial class CreatedBrand
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,25 +39,6 @@ namespace ConsoleAppEF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
-                });
-
-            modelBuilder.Entity("ConsoleAppEF.Core.Entities.Invoice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("ConsoleAppEF.Core.Entities.Product", b =>
@@ -93,24 +77,6 @@ namespace ConsoleAppEF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductDetails");
-                });
-
-            modelBuilder.Entity("ConsoleAppEF.Core.Entities.ProductInvoice", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("InvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Counting")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("ProductId", "InvoiceId");
-
-                    b.HasIndex("InvoiceId");
-
-                    b.ToTable("ProductInvoices");
                 });
 
             modelBuilder.Entity("ConsoleAppEF.Core.Entities.Setting", b =>
@@ -152,40 +118,14 @@ namespace ConsoleAppEF.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ConsoleAppEF.Core.Entities.ProductInvoice", b =>
-                {
-                    b.HasOne("ConsoleAppEF.Core.Entities.Invoice", "Invoice")
-                        .WithMany("ProductInvoices")
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ConsoleAppEF.Core.Entities.Product", "Product")
-                        .WithMany("ProductInvoices")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Invoice");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("ConsoleAppEF.Core.Entities.Brand", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("ConsoleAppEF.Core.Entities.Invoice", b =>
-                {
-                    b.Navigation("ProductInvoices");
-                });
-
             modelBuilder.Entity("ConsoleAppEF.Core.Entities.Product", b =>
                 {
                     b.Navigation("ProductDetail");
-
-                    b.Navigation("ProductInvoices");
                 });
 #pragma warning restore 612, 618
         }
